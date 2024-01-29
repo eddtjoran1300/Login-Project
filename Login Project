@@ -1,0 +1,57 @@
+import java.util.Scanner;
+
+public class Login {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        String existingUserAcc = "admin1";
+        String existingUserPwd = "admin1";
+
+        int attempts = 3;
+
+        while (attempts > 0) {
+            System.out.println("Enter username:");
+            String enteredUsername = scanner.nextLine();
+
+            String enteredPassword = getPasswordInput(scanner);
+
+            if (existingUserAcc.equals(enteredUsername) && existingUserPwd.equals(enteredPassword)) {
+                System.out.println("Login successful!");
+                break;
+            } else {
+                System.out.println("Wrong credentials, try again!");
+                attempts--;
+                if (attempts > 0) {
+                    System.out.println("You have " + attempts + " attempts remaining.\n");
+                } else {
+                    System.out.println("Out of attempts.");
+                }
+            }
+        }
+
+        scanner.close();
+    }
+
+    private static String getPasswordInput(Scanner scanner) {
+        StringBuilder password = new StringBuilder();
+
+        System.out.print("Enter password: ");
+        String input = scanner.nextLine();
+
+        if (input.isEmpty()) {
+            return "";
+        }
+
+        char firstChar = input.charAt(0);
+        System.out.print("*");
+        password.append(firstChar);
+
+        for (int i = 1; i < input.length(); i++) {
+            System.out.print("*");
+            password.append(input.charAt(i));
+        }
+
+        System.out.println();
+        return password.toString();
+    }
+}
